@@ -8,17 +8,16 @@ import PageContent from '../components/PageContent/PageContent.astro';
 import LeftSidebar from '../components/LeftSidebar/LeftSidebar.astro';
 import RightSidebar from '../components/RightSidebar/RightSidebar.astro';
 import Footer from '../components/Footer/Footer.astro';
-import { GITHUB_EDIT_URL, SITE } from '../consts';
+import {SITE } from '../consts';
 
-type Props = CollectionEntry<'docs'>['data'] & {
+type Props = CollectionEntry<'pages'>['data'] & {
 	headings: MarkdownHeading[];
 };
 
 const { headings, ...data } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPage = Astro.url.pathname;
-const currentFile = `src/content/docs${currentPage.replace(/\/$/, '')}.md`;
-const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
+const currentFile = `src/content/pages${currentPage.replace(/\/$/, '')}.md`;
 ---
 
 <html dir={data.dir} lang={data.lang} class="initial">
@@ -26,7 +25,7 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 		<HeadCommon />
 		<HeadSEO {...data} canonicalUrl={canonicalURL} />
 		<title>
-			{`${data.title} 🚀 ${SITE.title}`}
+			{`${data.title}  -  ${SITE.title}`}
 		</title>
 		<style>
 			body {
@@ -90,7 +89,7 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 
 			@media (min-width: 72em) {
 				.layout {
-					grid-template-columns: 20rem minmax(0, var(--max-width)) 18rem;
+					grid-template-columns: 15rem minmax(0, var(--max-width)) 18rem;
 					padding-left: 0;
 					padding-right: 0;
 					margin: 0 auto;
@@ -126,12 +125,12 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
 				<LeftSidebar currentPage={currentPage} />
 			</aside>
 			<div id="grid-main">
-				<PageContent title={data.title} headings={headings} githubEditUrl={githubEditUrl}>
+				<PageContent title={data.title} headings={headings}>
 					<slot />
 				</PageContent>
 			</div>
 			<aside id="grid-right" class="grid-sidebar" title="Table of Contents">
-				<RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
+				<RightSidebar headings={headings} />
 			</aside>
 		</main>
 		<Footer path={currentFile} />

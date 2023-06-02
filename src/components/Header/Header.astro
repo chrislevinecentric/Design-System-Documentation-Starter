@@ -1,18 +1,8 @@
 ---
-import { getLanguageFromURL, KNOWN_LANGUAGE_CODES } from '../../languages';
 import { SITE } from '../../consts';
-import AstroLogo from './AstroLogo.astro';
 import SkipToContent from './SkipToContent.astro';
 import SidebarToggle from './SidebarToggle';
-import LanguageSelect from './LanguageSelect';
-import Search from './Search';
-
-type Props = {
-	currentPage: string;
-};
-
-const { currentPage } = Astro.props;
-const lang = getLanguageFromURL(currentPage);
+import ThemeToggleButton from '../RightSidebar/ThemeToggleButton';
 ---
 
 <header>
@@ -22,15 +12,14 @@ const lang = getLanguageFromURL(currentPage);
 			<SidebarToggle client:idle />
 		</div>
 		<div class="logo flex">
-			<a href="/">
-				<AstroLogo size={40} />
-				<h1>{SITE.title ?? 'Documentation'}</h1>
+			<a>
+				<h1>{SITE.title ?? 'Design System Documentation '}</h1>
 			</a>
 		</div>
-		<div style="flex-grow: 1;"></div>
-		{KNOWN_LANGUAGE_CODES.length > 1 && <LanguageSelect lang={lang} client:idle />}
-		<div class="search-item">
-			<Search client:idle />
+		<div style="flex-grow: 1;">
+			<div style="margin: 0px 2rem 0px 0px; text-align: right;">
+				<ThemeToggleButton client:visible />
+			</div>
 		</div>
 	</nav>
 </header>
@@ -45,22 +34,22 @@ const lang = getLanguageFromURL(currentPage);
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
-		position: sticky;
+		position: relative;
 		top: 0;
+		
 	}
 
 	.logo {
-		flex: 1;
+		flex: 3;
 		display: flex;
 		overflow: hidden;
-		width: 30px;
-		font-size: 2rem;
+		font-size: 1.2rem;
 		flex-shrink: 0;
 		font-weight: 600;
 		line-height: 1;
-		color: hsla(var(--color-base-white), 100%, 1);
+		color: pink;
 		gap: 0.25em;
-		z-index: -1;
+		
 	}
 
 	.logo a {
@@ -82,32 +71,28 @@ const lang = getLanguageFromURL(currentPage);
 	}
 
 	.logo h1 {
-		display: none;
 		font: inherit;
 		color: inherit;
-		margin: 0;
 	}
 
 	.nav-wrapper {
 		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 1em;
+		gap: inherit;
 		width: 100%;
-		max-width: 82em;
-		padding: 0 1rem;
+		align-items: baseline;
 	}
 
 	@media (min-width: 50em) {
 		header {
 			position: static;
-			padding: 2rem 0rem;
+			padding: 0rem 0rem;
 		}
 
 		.logo {
 			width: auto;
 			margin: 0;
 			z-index: 0;
+			padding-left: 2rem
 		}
 
 		.logo h1 {
@@ -117,33 +102,5 @@ const lang = getLanguageFromURL(currentPage);
 		.menu-toggle {
 			display: none;
 		}
-	}
-
-	/** Style Algolia */
-	:root {
-		--docsearch-primary-color: var(--theme-accent);
-		--docsearch-logo-color: var(--theme-text);
-	}
-
-	.search-item {
-		display: none;
-		position: relative;
-		z-index: 10;
-		flex-grow: 1;
-		padding-right: 0.7rem;
-		display: flex;
-		max-width: 200px;
-	}
-
-	@media (min-width: 50em) {
-		.search-item {
-			max-width: 400px;
-		}
-	}
-</style>
-
-<style is:global>
-	.search-item > * {
-		flex-grow: 1;
 	}
 </style>
