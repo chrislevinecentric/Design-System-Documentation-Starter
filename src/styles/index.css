@@ -194,7 +194,6 @@ code {
 	--padding-block: 0.2rem;
 	--padding-inline: 0.33rem;
 
-	font-family: var(--font-mono);
 	font-size: 0.85em;
 	color: inherit;
 	background-color: var(--theme-code-inline-bg);
@@ -221,8 +220,6 @@ pre {
 	padding-right: calc(var(--padding-inline) * 2);
 	margin-left: calc(var(--padding-inline) * -1);
 	margin-right: calc(var(--padding-inline) * -1);
-	font-family: var(--font-mono);
-
 	line-height: 1.5;
 	font-size: 0.85em;
 	overflow-y: hidden;
